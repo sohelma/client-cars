@@ -1,4 +1,3 @@
-// src/App.jsx
 import { BrowserRouter as Router, Routes, Route } from "react-router";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
@@ -8,6 +7,7 @@ import MyBookings from "./pages/MyBookings";
 import BrowseCars from "./pages/BrowseCars";
 import PrivateRoute from "./components/PrivateRoute";
 import Navbar from "./components/Navbar";
+import CarDetails from "./pages/CarDetails"; // ✅ new import
 
 function App() {
   return (
@@ -18,9 +18,33 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/browse-cars" element={<BrowseCars />} />
 
-        <Route path="/add-car" element={<PrivateRoute><AddCar /></PrivateRoute>} />
-        <Route path="/my-listings" element={<PrivateRoute><MyListings /></PrivateRoute>} />
-        <Route path="/my-bookings" element={<PrivateRoute><MyBookings /></PrivateRoute>} />
+        {/* ✅ new route */}
+        <Route path="/car/:id" element={<CarDetails />} />
+
+        <Route
+          path="/add-car"
+          element={
+            <PrivateRoute>
+              <AddCar />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/my-listings"
+          element={
+            <PrivateRoute>
+              <MyListings />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/my-bookings"
+          element={
+            <PrivateRoute>
+              <MyBookings />
+            </PrivateRoute>
+          }
+        />
       </Routes>
     </Router>
   );
