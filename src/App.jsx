@@ -1,52 +1,59 @@
+// src/App.jsx
 import { BrowserRouter as Router, Routes, Route } from "react-router";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
+import Signup from "./pages/Signup";
+import ForgotPassword from "./pages/ForgotPassword";
 import AddCar from "./pages/AddCar";
 import MyListings from "./pages/MyListings";
 import MyBookings from "./pages/MyBookings";
-import BrowseCars from "./pages/BrowseCars";
-import PrivateRoute from "./components/PrivateRoute";
+import CarDetails from "./pages/CarDetails";
 import Navbar from "./components/Navbar";
-import CarDetails from "./pages/CarDetails"; // ✅ new import
+import Footer from "./components/Footer";
+import ProtectedRoute from "./route/ProtectedRoute";
+import AuthProvider from "./providers/AuthProvider";
 
 function App() {
   return (
-    <Router>
-      <Navbar />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/browse-cars" element={<BrowseCars />} />
+    <AuthProvider>
+      <Router>
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/car/:id" element={<CarDetails />} />
 
-        {/* ✅ new route */}
-        <Route path="/car/:id" element={<CarDetails />} />
-
-        <Route
-          path="/add-car"
-          element={
-            <PrivateRoute>
-              <AddCar />
-            </PrivateRoute>
-          }
-        />
-        <Route
-          path="/my-listings"
-          element={
-            <PrivateRoute>
-              <MyListings />
-            </PrivateRoute>
-          }
-        />
-        <Route
-          path="/my-bookings"
-          element={
-            <PrivateRoute>
-              <MyBookings />
-            </PrivateRoute>
-          }
-        />
-      </Routes>
-    </Router>
+          {/* Protected routes */}
+          <Route
+            path="/add-car"
+            element={
+              <ProtectedRoute>
+                <AddCar />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/my-listings"
+            element={
+              <ProtectedRoute>
+                <MyListings />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/my-bookings"
+            element={
+              <ProtectedRoute>
+                <MyBookings />
+              </ProtectedRoute>
+            }
+          />
+        </Routes>
+        <Footer />
+      </Router>
+    </AuthProvider>
   );
 }
 

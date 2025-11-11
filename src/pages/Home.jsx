@@ -1,45 +1,54 @@
 import React, { useEffect, useState } from "react";
-import CarCard from "../components/CarCard";
-import HeroBanner from "../components/HeroBanner";
-import WhyRentWithUs from "../components/WhyRentWithUs";
-import TopRatedCars from "../components/TopRatedCars";
-import Testimonials from "../components/Testimonials";
-import "slick-carousel/slick/slick.css"; 
-import "slick-carousel/slick/slick-theme.css";
+import axios from "axios";
+import { Link } from "react-router";
+import { toast } from "react-toastify";
 
 const Home = () => {
   const [cars, setCars] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch(`${import.meta.env.VITE_API_URL}/cars?limit=6`)
-      .then((res) => res.json())
-      .then((data) => setCars(data))
-      .catch((err) => console.error(err));
+    const fetchCars = async () => {
+      try {
+        const res = await axios.get(`${import.meta.env.VITE_API_URL}/cars`);
+        setCars(res.data);
+      } catch (error) {
+        console.error("Error fetching cars:", error);
+        toast.error("Failed to load cars.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchCars();
   }, []);
 
+  if (loading) return <div className="text-center mt-20">Loading cars...</div>;
+  if (!cars.length) return <div className="text-center mt-20">No cars available</div>;
+
   return (
-    <>
-      <HeroBanner />
+    <div className="max-w-6xl mx-auto p-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      {cars.map((car) => (
+        <div key={car._id} className="border rounded-lg shadow-md p-4">
+          <img
+            src={car.image.startsWith("http") ? car.image : `${import.meta.env.VITE_API_URL}${car.image}`}
+            alt={car.carName}
+            className="w-full h-48 object-cover rounded"
+          />
+          <h3 className="text-xl font-bold mt-2">{car.carName}</h3>
+          <p className="text-gray-700">Category: {car.category}</p>
+          <p className="text-gray-700">Price: ৳{car.rentPrice} / day</p>
 
-      <div className="w-full max-w-7xl mx-auto px-4 py-8">
-        <h1 className="text-2xl font-bold text-center mb-8 text-indigo-600">
-          Featured Cars
-        </h1>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {cars.map((car) => (
-            <CarCard key={car._id} car={car} />
-          ))}
+          <Link
+            to={`/car/${car._id}`}
+            className="inline-block mt-2 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+          >
+            View Details
+          </Link>
         </div>
-      </div>
-
-      <WhyRentWithUs />
-
-      <TopRatedCars />
-
-      <Testimonials />
-    </>
+      ))}
+    </div>
   );
 };
 
 export default Home;
-    

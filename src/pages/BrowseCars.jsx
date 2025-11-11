@@ -1,41 +1,27 @@
-
-// src/pages/BrowseCars.jsx
+// BrowseCars.jsx
 import React, { useEffect, useState } from "react";
-import CarCard from "../components/CarCard";
+import axios from "axios";
 
 const BrowseCars = () => {
   const [cars, setCars] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch(`${import.meta.env.VITE_API_URL}/cars`)
-      .then((res) => res.json())
-      .then((data) => {
-        setCars(data);
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.error(err);
-        setLoading(false);
-      });
+    axios.get("http://localhost:5000/cars") // তোমার backend URL
+      .then(res => setCars(res.data))
+      .catch(err => console.error(err))
+      .finally(() => setLoading(false));
   }, []);
 
-  if (loading) {
-    return <p className="text-center mt-8">Loading cars...</p>;
-  }
+  if (loading) return <p>Loading...</p>;
 
-  if (cars.length === 0) {
-    return <p className="text-center mt-8">No cars available right now.</p>;
-  }
+  if (!cars.length) return <p>No cars found.</p>;
 
   return (
-    <div className="w-full max-w-7xl mx-auto px-4 py-8">
-      <h1 className="text-4xl font-bold text-center mb-8">Browse Cars</h1>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {cars.map((car) => (
-          <CarCard key={car._id} car={car} />
-        ))}
-      </div>
+    <div>
+      {cars.map(car => (
+        <div key={car._id}>{car.carName}</div>
+      ))}
     </div>
   );
 };

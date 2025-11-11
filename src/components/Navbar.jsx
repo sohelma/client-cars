@@ -1,57 +1,42 @@
 // src/components/Navbar.jsx
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router";
-import { HiMenu, HiX } from "react-icons/hi";
+import { onAuthStateChanged, signOut } from "firebase/auth";
+import { auth } from "../firebase/firebase.config";
 
 const Navbar = () => {
-  const [menuOpen, setMenuOpen] = useState(false);
+  const [user, setUser] = useState(null);
 
-  // ধরুন user info localStorage থেকে
-  const user = JSON.parse(localStorage.getItem("user"));
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+    });
+    return () => unsubscribe();
+  }, []);
+
+  const handleLogout = () => {
+    signOut(auth);
+  };
 
   return (
-    <nav className="bg-white shadow-md fixed w-full z-50">
-      <div className="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
-        <Link to="/" className="text-xl font-bold">RentWheels</Link>
-
-        {/* Desktop Links */}
-        <ul className="hidden md:flex space-x-6 items-center">
-          <li><Link to="/">Home</Link></li>
-          {user && <li><Link to="/add-car">Add Car</Link></li>}
-          {user && <li><Link to="/my-listings">My Listings</Link></li>}
-          {user && <li><Link to="/my-bookings">My Bookings</Link></li>}
-          <li><Link to="/browse-cars">Browse Cars</Link></li>
-          {!user && <li><Link to="/login">Login</Link></li>}
-          {user && (
-            <li>
-              <img 
-                src={user.photoURL} 
-                alt={user.displayName} 
-                className="w-8 h-8 rounded-full cursor-pointer"
-              />
-            </li>
-          )}
-        </ul>
-
-        {/* Mobile Hamburger */}
-        <div className="md:hidden">
-          <button onClick={() => setMenuOpen(!menuOpen)}>
-            {menuOpen ? <HiX size={24} /> : <HiMenu size={24} />}
-          </button>
-        </div>
+    <nav className="flex justify-between items-center p-4 bg-gray-800 text-white">
+      <Link to="/" className="text-xl font-bold">RentWheels</Link>
+      <div>
+        <Link to="/" className="mr-4">Home</Link>
+        {user ? (
+          <>
+            <span className="mr-4">{user.email}</span>
+            <button onClick={handleLogout} className="bg-red-500 px-3 py-1 rounded">
+              Logout
+            </button>
+          </>
+        ) : (
+          <>
+            <Link to="/login" className="mr-4">Login</Link>
+            <Link to="/register">Register</Link>
+          </>
+        )}
       </div>
-
-      {/* Mobile Menu */}
-      {menuOpen && (
-        <ul className="md:hidden bg-white px-4 pb-4 space-y-2">
-          <li><Link to="/" onClick={() => setMenuOpen(false)}>Home</Link></li>
-          {user && <li><Link to="/add-car" onClick={() => setMenuOpen(false)}>Add Car</Link></li>}
-          {user && <li><Link to="/my-listings" onClick={() => setMenuOpen(false)}>My Listings</Link></li>}
-          {user && <li><Link to="/my-bookings" onClick={() => setMenuOpen(false)}>My Bookings</Link></li>}
-          <li><Link to="/browse-cars" onClick={() => setMenuOpen(false)}>Browse Cars</Link></li>
-          {!user && <li><Link to="/login" onClick={() => setMenuOpen(false)}>Login</Link></li>}
-        </ul>
-      )}
     </nav>
   );
 };

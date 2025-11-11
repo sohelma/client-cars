@@ -1,10 +1,10 @@
-// src/components/PrivateRoute.jsx
+// src/components/ProtectedRoute.jsx
 import React, { useContext } from "react";
 import { Navigate, useLocation } from "react-router";
 import { AuthContext } from "../providers/AuthProvider";
-import Loader from "./Loader"; // Loader component দেখাবে যখন loading true
+import Loader from "../components/Loader";
 
-const PrivateRoute = ({ children }) => {
+const ProtectedRoute = ({ children }) => {
   const { user, loading } = useContext(AuthContext);
   const location = useLocation();
 
@@ -17,4 +17,4 @@ const PrivateRoute = ({ children }) => {
   return children;
 };
 
-export default PrivateRoute;
+export default ProtectedRoute;
