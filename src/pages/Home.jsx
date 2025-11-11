@@ -73,7 +73,7 @@ const Home = () => {
       },
     ].map((slide, idx) => (
       <div key={idx} className="relative h-[500px] bg-black overflow-hidden">
-        <div className="absolute inset-0 flex flex-col items-center justify-center text-center text-white px-4">
+        <div className="absolute inset-0 flex flex-col items-center justify-center text-center text-red-700 px-4">
           <h1 className="text-4xl md:text-6xl font-bold mb-4 animate-fadeInUp">
             {slide.title}
           </h1>
