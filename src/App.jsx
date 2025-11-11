@@ -1,4 +1,3 @@
-// src/App.jsx
 import { BrowserRouter as Router, Routes, Route } from "react-router";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
@@ -25,7 +24,6 @@ function App() {
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/car/:id" element={<CarDetails />} />
 
-          {/* Protected routes */}
           <Route
             path="/add-car"
             element={

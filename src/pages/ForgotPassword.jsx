@@ -1,31 +1,33 @@
 // src/pages/ForgotPassword.jsx
 import React, { useState } from "react";
-import { sendPasswordResetEmail } from "firebase/auth";
 import { auth } from "../firebase/firebase.config";
-import toast from "react-hot-toast";
-import { Link, useNavigate } from "react-router";
+import { sendPasswordResetEmail } from "firebase/auth";
+import Swal from "sweetalert2";
 import Loader from "../components/Loader";
+import { Link } from "react-router";
 
 const ForgotPassword = () => {
-  const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
 
-  const handleResetPassword = async (e) => {
+  const handleForgotPassword = async (e) => {
     e.preventDefault();
-    if (!email) {
-      toast.error("Please enter your email!");
-      return;
-    }
-
     setLoading(true);
+
+    const email = e.target.email.value;
+
     try {
       await sendPasswordResetEmail(auth, email);
-      toast.success(`✅ Reset email sent to ${email}.`);
-      setEmail(""); // clear input
-      navigate("/login"); // redirect to login
+      Swal.fire({
+        icon: "success",
+        title: "Email Sent!",
+        text: "Password reset email has been sent. Check your inbox.",
+      });
     } catch (error) {
-      toast.error("❌ " + error.message);
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: error.message,
+      });
     } finally {
       setLoading(false);
     }
@@ -34,15 +36,15 @@ const ForgotPassword = () => {
   if (loading) return <Loader />;
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100">
+    <div className="flex justify-center items-center min-h-screen bg-sky-100">
       <div className="w-full max-w-md p-6 bg-white rounded-xl shadow-lg">
         <h2 className="text-2xl font-bold text-center mb-6">Forgot Password</h2>
-        <form onSubmit={handleResetPassword} className="space-y-4">
+
+        <form onSubmit={handleForgotPassword} className="space-y-4">
           <input
             type="email"
-            placeholder="Enter your email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            name="email"
+            placeholder="Enter your registered email"
             required
             className="w-full p-2 border rounded"
           />

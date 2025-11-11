@@ -3,13 +3,19 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router";
 import { createUserWithEmailAndPassword, updateProfile, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { auth } from "../firebase/firebase.config";
-import toast from "react-hot-toast";
+import Swal from "sweetalert2";
 import Loader from "../components/Loader";
 
 const Signup = () => {
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
+
+  const validatePassword = (password) => {
+    // Password must have uppercase, lowercase and minimum 6 chars
+    const regex = /^(?=.*[a-z])(?=.*[A-Z]).{6,}$/;
+    return regex.test(password);
+  };
 
   const handleSignup = async (e) => {
     e.preventDefault();
@@ -18,14 +24,33 @@ const Signup = () => {
     const name = e.target.name.value;
     const email = e.target.email.value;
     const password = e.target.password.value;
+    const photoURL = e.target.photoURL.value;
+
+    if (!validatePassword(password)) {
+      Swal.fire({
+        icon: "error",
+        title: "Weak Password",
+        text: "Password must be at least 6 characters long and contain uppercase & lowercase letters.",
+      });
+      setLoading(false);
+      return;
+    }
 
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-      await updateProfile(userCredential.user, { displayName: name });
-      toast.success("Signup successful!");
+      await updateProfile(userCredential.user, { displayName: name, photoURL });
+      Swal.fire({
+        icon: "success",
+        title: "Signup Successful",
+        text: "Your account has been created.",
+      });
       navigate("/");
     } catch (error) {
-      toast.error(error.message);
+      Swal.fire({
+        icon: "error",
+        title: "Signup Failed",
+        text: error.message,
+      });
     } finally {
       setLoading(false);
     }
@@ -36,17 +61,24 @@ const Signup = () => {
     const provider = new GoogleAuthProvider();
     try {
       await signInWithPopup(auth, provider);
-      toast.success("Google login successful!");
+      Swal.fire({
+        icon: "success",
+        title: "Google Login Successful",
+        text: "You are now logged in.",
+      });
       navigate("/");
     } catch (error) {
-      toast.error(error.message);
+      Swal.fire({
+        icon: "error",
+        title: "Google Login Failed",
+        text: error.message,
+      });
     } finally {
       setLoading(false);
     }
   };
 
   if (loading) return <Loader />;
-console.log("Signup page loaded");
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-sky-100">
@@ -55,6 +87,7 @@ console.log("Signup page loaded");
         <form onSubmit={handleSignup} className="space-y-4">
           <input type="text" name="name" placeholder="Full Name" required className="w-full p-2 border rounded" />
           <input type="email" name="email" placeholder="Email" required className="w-full p-2 border rounded" />
+          <input type="text" name="photoURL" placeholder="Photo URL (optional)" className="w-full p-2 border rounded" />
           <div className="relative">
             <input
               type={showPassword ? "text" : "password"}
