@@ -56,7 +56,7 @@ const Login = () => {
       ) : (
         <div className="w-full max-w-md p-6 bg-gradient-to-b from-white to-gray-100 rounded-2xl shadow-xl">
           <h2 className="text-2xl text-indigo-600 font-bold mb-6 text-center">
-            <span className="font-light">Welcome to Our<br /></span>Login
+            <span className="font-light">Welcome<br /></span>Login
           </h2>
 
           {/* Email/Password Form */}
@@ -103,13 +103,13 @@ const Login = () => {
 
           {/* Forgot Password & Google Login */}
           <div className="mt-4 flex justify-between items-center">
-            <Link to="/forgot-password" state={{ email }} className="text-blue-500 hover:underline">
+            <Link to="/forgot-password" state={{ email }} className="text-indigo-600 hover:text-blue-500 font-bold">
               Forgot Password?
             </Link>
 
             <button
               onClick={handleGoogleLogin}
-              className="bg-pink-500 text-white px-4 py-1 rounded hover:bg-pink-700 text-gray-200"
+              className="bg-green-600 text-white px-4 py-1 rounded hover:bg-pink-700 text-gray-200"
             >
               Login with Google
             </button>
@@ -118,7 +118,7 @@ const Login = () => {
           {/* Signup Link */}
           <div className="mt-4 text-center">
             Don't have an account?{" "}
-            <Link to="/signup" className="text-blue-500 hover:underline">
+            <Link to="/signup" className="text-indigo-600 hover:text-blue-500  font-bold">
               Signup
             </Link>
           </div>

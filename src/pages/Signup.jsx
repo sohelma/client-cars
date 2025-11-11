@@ -46,6 +46,7 @@ const Signup = () => {
   };
 
   if (loading) return <Loader />;
+console.log("Signup page loaded");
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-sky-100">
