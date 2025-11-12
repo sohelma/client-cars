@@ -9,11 +9,19 @@ const Footer = () => {
 
     {/* Contact */}
     <div>
-      <h2 className="text-xl font-semibold text-white mb-3">Contact Info</h2>
-      <p>📍 01234 Gulshan Ave, Dhaka, Bangladesh</p>
-      <p>📞 +880 1712-3000000</p>
-      <p>✉️ support@csticket.com</p>
-    </div>
+        <div to="/" className="flex items-center space-x-2">
+            <img
+              src="/images/logo1.png"
+              alt="RentWheels"
+              className="h-10 w-auto"
+            />
+            <span className="text-sm font-bold text-blue-600">Car Rental Platform </span>
+          </div>
+      <h2 className="text-xl font-semibold text-white mb-3">Contact Detail</h2>
+      <p>📍 01 Motijheel C/A, Dhaka, Bangladesh</p>
+      <p>📞 +880 1333-000000</p>
+      <p>✉️ info@rentwheels.com</p>
+    </div> 
 
     {/* Social Links */}
     <div>
@@ -50,8 +58,8 @@ const Footer = () => {
   </div>
 
   {/* Footer*/}
-  <div className="text-center text-blue-400 border-t border-gray-700 mt-10 pt-6">
-     © 2025 SkillSwap — All rights reserved.
+  <div className="text-center text-blue-500 border-t border-gray-700 mt-10 pt-6">
+     © 2025 RentWheels — All rights reserved.
   </div>
 </footer>
 

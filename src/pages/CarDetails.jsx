@@ -63,7 +63,7 @@ const CarDetails = () => {
       <h2 className="text-3xl font-bold mb-3">{car.carName}</h2>
       <p className="text-gray-700 mb-2">Category: {car.category}</p>
       <p className="text-gray-700 mb-2">Location: {car.location}</p>
-      <p className="text-gray-700 mb-2">Price: ৳{car.rentPrice} / day</p>
+      <p className="text-gray-700 mb-2">Price: ${car.rentPrice} / day</p>
       <p className="text-gray-700 mb-2">Status: 
         <span className={`ml-2 px-2 py-1 rounded text-white ${car.status === 'Booked' ? 'bg-red-500' : 'bg-green-500'}`}>
           {car.status || "Available"}

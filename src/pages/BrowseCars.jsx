@@ -7,7 +7,7 @@ const BrowseCars = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    axios.get("http://localhost:5000/cars") // তোমার backend URL
+    axios.get("http://localhost:3000/cars") // তোমার backend URL
       .then(res => setCars(res.data))
       .catch(err => console.error(err))
       .finally(() => setLoading(false));
