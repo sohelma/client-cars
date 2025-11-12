@@ -1,6 +1,5 @@
-// src/route/ProtectedRoute.jsx
+import { Navigate, useLocation } from "react-router-dom"; // change here
 import React, { useContext } from "react";
-import { Navigate, useLocation } from "react-router";
 import { AuthContext } from "../providers/AuthProvider";
 import Loader from "../components/Loader";
 
@@ -18,6 +17,3 @@ const ProtectedRoute = ({ children }) => {
 };
 
 export default ProtectedRoute;
-
-
-

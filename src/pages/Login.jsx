@@ -1,6 +1,8 @@
 // src/pages/Login.jsx
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router";
+
+import { Link, useNavigate } from "react-router-dom";
+
 import { signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { auth } from "../firebase/firebase.config";
 import Swal from "sweetalert2";

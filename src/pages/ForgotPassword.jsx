@@ -4,7 +4,7 @@ import { auth } from "../firebase/firebase.config";
 import { sendPasswordResetEmail } from "firebase/auth";
 import Swal from "sweetalert2";
 import Loader from "../components/Loader";
-import { Link } from "react-router";
+import { Link } from "react-router-dom";
 
 const ForgotPassword = () => {
   const [loading, setLoading] = useState(false);

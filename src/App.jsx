@@ -1,4 +1,7 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router";
+
+
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+
 import { useContext } from "react";
 import AuthProvider, { AuthContext } from "./providers/AuthProvider";
 import Navbar from "./components/Navbar";
@@ -9,6 +12,8 @@ import Signup from "./pages/Signup";
 import AddCar from "./pages/AddCar";
 import MyListings from "./pages/MyListings";
 import MyBookings from "./pages/MyBookings";
+import BrowseCars from "./pages/BrowseCars";
+import CarDetails from "./pages/CarDetails"; // মনে রাখো import করতে হবে
 import ProtectedRoute from "./route/ProtectedRoute";
 import Error404 from "./pages/Error404";
 
@@ -21,68 +26,34 @@ function AppRoutes() {
       <Route path="*" element={<Error404 />} />
 
       {/* Public Routes */}
-      <Route
-        path="/"
-        element={
-          <>
-            <Navbar />
-            <Home />
-            <Footer />
-          </>
-        }
-      />
-      <Route
-        path="/login"
-        element={
-          <>
-            <Navbar />
-            <Login />
-            <Footer />
-          </>
-        }
-      />
-      <Route
-        path="/signup"
-        element={
-          <>
-            <Navbar />
-            <Signup />
-            <Footer />
-          </>
-        }
-      />
+      <Route path="/" element={<><Navbar /><Home /><Footer /></>} />
+      <Route path="/login" element={<><Navbar /><Login /><Footer /></>} />
+      <Route path="/signup" element={<><Navbar /><Signup /><Footer /></>} />
+      <Route path="/browse-cars" element={<><Navbar /><BrowseCars /><Footer /></>} />
 
       {/* Protected Routes */}
-      <Route
-        path="/add-car"
-        element={
-          <ProtectedRoute>
-            <Navbar />
-            <AddCar />
-            <Footer />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/my-listings"
-        element={
-          <ProtectedRoute>
-            <Navbar />
-            <MyListings userEmail={user?.email} />
-            <Footer />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/my-bookings"
-        element={
-          <ProtectedRoute>
-            <Navbar />
-            <MyBookings />
-            <Footer />
-          </ProtectedRoute>
-        }
-      />
+      <Route path="/add-car" element={
+        <ProtectedRoute>
+          <><Navbar /><AddCar /><Footer /></>
+        </ProtectedRoute>
+      } />
+      <Route path="/my-listings" element={
+        <ProtectedRoute>
+          <><Navbar /><MyListings userEmail={user?.email} /><Footer /></>
+        </ProtectedRoute>
+      } />
+      <Route path="/my-bookings" element={
+        <ProtectedRoute>
+          <><Navbar /><MyBookings /><Footer /></>
+        </ProtectedRoute>
+      } />
+
+      {/* Car Details (Private) */}
+      <Route path="/cars/:id" element={
+        <ProtectedRoute>
+          <><Navbar /><CarDetails /><Footer /></>
+        </ProtectedRoute>
+      } />
     </Routes>
   );
 }

@@ -1,6 +1,7 @@
 import React from "react";
 import { FaFacebook, FaLinkedin, FaInstagram } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
@@ -9,14 +10,14 @@ const Footer = () => {
 
     {/* Contact */}
     <div>
-        <div to="/" className="flex items-center space-x-2">
-            <img
-              src="/images/logo1.png"
-              alt="RentWheels"
-              className="h-10 w-auto"
-            />
-            <span className="text-sm font-bold text-blue-600">Car Rental Platform </span>
-          </div>
+       <Link to="/" className="flex items-center space-x-2">
+  <img
+    src="/images/logo1.png"
+    alt="RentWheels"
+    className="h-10 w-auto"
+  />
+  <span className="text-sm font-bold text-blue-600">Car Rental Platform</span>
+</Link>
       <h2 className="text-xl font-semibold text-white mb-3">Contact Detail</h2>
       <p>📍 01 Motijheel C/A, Dhaka, Bangladesh</p>
       <p>📞 +880 1333-000000</p>

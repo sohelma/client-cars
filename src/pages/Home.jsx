@@ -1,7 +1,7 @@
 // src/pages/Home.jsx
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Link } from "react-router";
+import { Link } from "react-router-dom";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -86,38 +86,38 @@ const Home = () => {
   </Slider>
 </section>
 
-      {/* Featured Cars */}
-      <section className="max-w-6xl mx-auto mb-12">
-        <h2 className="text-3xl font-bold mb-6 text-center">Featured Cars</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {featuredCars.map((car) => (
-            <div key={car._id} className="border rounded-lg shadow-md p-4 hover:shadow-xl transition relative bg-white">
-             <img
-                  src={
-                    car.image && car.image.startsWith("http")
-                      ? car.image
-                      : car.image
-                      ? `${import.meta.env.VITE_API_URL}${car.image}`
-                      : "https://via.placeholder.com/400x300?text=No+Image"
-                  }
-                  alt={car.carName || "Car"}
-                  className="w-full h-48 object-cover rounded"
-                />
+        {/* Featured Cars */}
+        <section className="max-w-6xl mx-auto mb-12">
+          <h2 className="text-3xl font-bold mb-6 text-center">Featured Cars</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {featuredCars.map((car) => (
+              <div key={car._id} className="border rounded-lg shadow-md p-4 hover:shadow-xl transition relative bg-white">
+              <img
+                    src={
+                      car.image && car.image.startsWith("http")
+                        ? car.image
+                        : car.image
+                        ? `${import.meta.env.VITE_API_URL}${car.image}`
+                        : "https://via.placeholder.com/400x300?text=No+Image"
+                    }
+                    alt={car.carName || "Car"}
+                    className="w-full h-48 object-cover rounded"
+                  />
 
-              <h3 className="text-xl font-bold mt-2">{car.carName}</h3>
-              <p className="text-gray-700">Category: {car.category}</p>
-              <p className="text-gray-700">Price: ${car.rentPrice}/day</p>
-              <p className="text-green-600 font-semibold">Rating: {car.rating}</p>
-              <Link
-                to={`/car/${car._id}`}
-                className="inline-block mt-2 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
-              >
-                View Details
-              </Link>
-            </div>
-          ))}
-        </div>
-      </section>
+                <h3 className="text-xl font-bold mt-2">{car.carName}</h3>
+                <p className="text-gray-700">Category: {car.category}</p>
+                <p className="text-gray-700">Price: ${car.rentPrice}/day</p>
+                <p className="text-green-600 font-semibold">Rating: {car.rating}</p>
+                  <Link
+                    to={`/cars/${car._id}`}
+                    className="inline-block mt-2 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+                  >
+                    View Details
+                </Link>
+              </div>
+            ))}
+          </div>
+        </section>
 
       {/* Top Rated Cars */}
       <section className="max-w-6xl mx-auto mb-12">
