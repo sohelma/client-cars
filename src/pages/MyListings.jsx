@@ -147,7 +147,7 @@ const MyListings = ({ userEmail }) => {
         </table>
       )}
 
-      {/* 🟢 Update Modal */}
+      {/* Update Modal */}
       {editingCar && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
           <div className="bg-white p-6 rounded-lg w-full max-w-md">
