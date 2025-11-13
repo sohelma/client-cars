@@ -140,13 +140,13 @@ const Home = () => {
       </section>
 
       {/* Top Rated Cars */}
-      <section className="max-w-6xl mx-auto mb-12">
+      <section className="max-w-6xl mx-auto mb-12 ">
         <h2 className="text-3xl font-bold mb-6 text-center">Top Rated Cars</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 ">
           {topRatedCars.map((car) => (
             <motion.div
               key={car._id}
-              className="relative border rounded-lg shadow-md p-4 hover:shadow-xl transition bg-gray-50"
+              className="relative border rounded-lg shadow-md p-4 hover:shadow-xl transition bg-gray-300"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               initial={{ opacity: 0, y: 20 }}
@@ -176,7 +176,7 @@ const Home = () => {
       </section>
 
       {/* Why Rent With Us */}
-      <section className="max-w-6xl mx-auto mb-12">
+      <section className="max-w-6xl mx-auto mb-12 p-6 rounded-lg bg-gradient-to-r from-yellow-100 via-pink-50 to-purple-50">
         <h2 className="text-3xl font-bold mb-6 text-center">Why Rent With Us</h2>
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
           {features.map((item, idx) => (
@@ -193,15 +193,15 @@ const Home = () => {
       </section>
 
       {/* Customer Testimonials */}
-      <section className="max-w-6xl mx-auto mt-12 mb-12">
+      <section className="max-w-6xl mx-auto mt-12 mb-12 ">
         <h2 className="text-3xl font-bold mb-6 text-center">Customer Testimonials</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 ">
           {[
             { name: "Sabahat Safina", text: "Great service!", img: "user1.webp" },
             { name: "S. A. Mamun", text: "Affordable cars.", img: "user2.avif" },
             { name: "Ali Khan", text: "Excellent experience.", img: "user3.jpg" },
           ].map((t, idx) => (
-            <div key={idx} className="bg-white p-6 rounded-lg shadow text-center">
+            <div key={idx} className="bg-white p-6 rounded-lg shadow text-center  bg-gradient-to-b from-blue-100 via-green-50 to-blue-50">
               <img
                 src={`http://localhost:3000/images/${t.img}`}
                 alt={t.name}
