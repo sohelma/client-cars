@@ -6,7 +6,7 @@ const Error404 = () => {
     <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-blue-50 to-blue-100 dark:from-gray-900 dark:to-gray-800 px-6 py-12">
       
       {/* 404 Text */}
-      <h1 className="text-8xl font-extrabold text-blue-600 dark:text-blue-400">404</h1>
+      <h1 className="text-8xl font-extrabold text-indigo-600 dark:text-blue-400">404</h1>
       <p className="mt-4 text-2xl md:text-3xl text-gray-700 dark:text-gray-300 font-semibold">
         Oops! Page not found.
       </p>

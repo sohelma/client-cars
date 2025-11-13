@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom"; // <-- Link ইমপোর্ট
 import axios from "axios";
 
 const TopRatedCars = () => {
@@ -19,9 +20,10 @@ const TopRatedCars = () => {
 
       <div className="flex justify-center gap-6 flex-wrap">
         {topCars.map((car) => (
-          <div
+          <Link
+            to={`/cars/${car._id}`} // <-- এখানে লিঙ্ক
             key={car._id}
-            className="w-72 border rounded-lg bg-white p-4"
+            className="w-72 border rounded-lg bg-white p-4 hover:shadow-lg transition"
           >
             <img
               src={
@@ -40,7 +42,7 @@ const TopRatedCars = () => {
                 Top Rated
               </span>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
     </div>

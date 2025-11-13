@@ -90,54 +90,48 @@ const Home = () => {
       </section>
 
       {/* Featured Cars */}
-      <section className="max-w-6xl mx-auto mb-12 mt-4 px-4">
-        <h2 className="text-3xl font-bold mb-6 text-center">Featured Cars</h2>
-        <div className="flex justify-center mb-8">
-          <input
-            type="text"
-            placeholder="Search car by name..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full sm:w-96 px-4 py-2 border border-gray-300 rounded-full shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200"
+     {/* Featured Cars Section */}
+<section className="max-w-7xl mx-auto px-4 py-8">
+  <h2 className="text-3xl font-bold mb-6 text-center text-black">Featured Cars</h2>
+
+  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    {featuredCars.length > 0 ? (
+      featuredCars.map((car) => (
+        <div
+          key={car._id}
+          className="border rounded-lg shadow-md p-4 hover:shadow-xl transition bg-white"
+        >
+          <img
+            src={
+              car.image && car.image.startsWith("http")
+                ? car.image
+                : car.image
+                ? `${import.meta.env.VITE_API_URL}${car.image}`
+                : "https://via.placeholder.com/400x300?text=No+Image"
+            }
+            alt={car.carName || "Car"}
+            className="w-full h-48 object-cover rounded"
           />
-        </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredCars.length > 0 ? (
-            filteredCars.map((car) => (
-              <motion.div
-                key={car._id}
-                className="border rounded-lg shadow-md p-4 hover:shadow-xl transition relative bg-white"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.3 }}
-              >
-                <img
-                  src={car.image && car.image.startsWith("http") ? car.image : car.image ? `${import.meta.env.VITE_API_URL}${car.image}` : "https://via.placeholder.com/400x300?text=No+Image"}
-                  alt={car.carName || "Car"}
-                  className="w-full h-48 object-cover rounded"
-                  data-tooltip-id={`car-tooltip-${car._id}`}
-                  data-tooltip-content={`Price: $${car.rentPrice}/day\nRating: ${car.rating}`}
-                />
-                <Tooltip id={`car-tooltip-${car._id}`} place="top" effect="solid" multiline />
+          <h3 className="text-xl font-semibold mt-2">{car.carName}</h3>
+          <p className="text-gray-700">Rent: ৳{car.rentPrice} / day</p>
+          <p className="text-gray-500">Category / Model: {car.category}</p>
+          <p className="text-gray-500">Provider: {car.providerName}</p>
 
-                <h3 className="text-xl font-bold mt-2">{car.carName}</h3>
-                <p className="text-gray-700">Category: {car.category}</p>
-                <Link
-                  to={`/cars/${car._id}`}
-                  className="inline-block mt-2 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
-                >
-                  View Details
-                </Link>
-              </motion.div>
-            ))
-          ) : (
-            <p className="text-center text-gray-500 col-span-full">No cars found matching “{searchTerm}”</p>
-          )}
+          <Link
+            to={`/cars/${car._id}`}
+            className="inline-block mt-3 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition"
+          >
+            View Details
+          </Link>
         </div>
-      </section>
+      ))
+    ) : (
+      <p className="text-center text-gray-500 col-span-full">No cars available.</p>
+    )}
+  </div>
+</section>
+
 
       {/* Top Rated Cars */}
       <section className="max-w-6xl mx-auto mb-12 ">

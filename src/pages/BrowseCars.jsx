@@ -10,7 +10,7 @@ const BrowseCars = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/cars") // সব cars fetch
+      .get("http://localhost:3000/cars") // all cars fetching
       .then((res) => {
         setCars(res.data);
       })

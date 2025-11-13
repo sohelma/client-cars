@@ -6,7 +6,7 @@ const MyListings = ({ userEmail }) => {
   const [myCars, setMyCars] = useState([]);
   const [editingCar, setEditingCar] = useState(null); // for modal
 
-  // Fallback local images (public/images folder)
+  // local images (public/images folder)
   const fallbackImages = [
     "bmw.jpg",
     "nissan.jpg",
@@ -30,7 +30,7 @@ const MyListings = ({ userEmail }) => {
       .catch((err) => console.error("Error fetching cars:", err));
   }, [userEmail]);
 
-  // 🟢 Delete Handler
+  // Delete Handler
   const handleDelete = (id) => {
     Swal.fire({
       title: "Are you sure?",
@@ -55,12 +55,12 @@ const MyListings = ({ userEmail }) => {
     });
   };
 
-  // 🟡 Update Handler (open modal)
+  // Update Handler (open modal)
   const handleEdit = (car) => {
     setEditingCar(car);
   };
 
-  // 🟣 Save Update
+  //  Save Update
   const handleUpdate = (e) => {
     e.preventDefault();
     const form = e.target;

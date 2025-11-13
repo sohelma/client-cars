@@ -13,7 +13,7 @@ import AddCar from "./pages/AddCar";
 import MyListings from "./pages/MyListings";
 import MyBookings from "./pages/MyBookings";
 import BrowseCars from "./pages/BrowseCars";
-import CarDetails from "./pages/CarDetails"; // মনে রাখো import করতে হবে
+import CarDetails from "./pages/CarDetails"; 
 import ProtectedRoute from "./route/ProtectedRoute";
 import Error404 from "./pages/Error404";
 

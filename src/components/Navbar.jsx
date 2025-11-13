@@ -11,7 +11,7 @@ const Navbar = () => {
   const handleDropdown = () => setDropdownOpen(!dropdownOpen);
 
   return (
-  <nav className="fixed w-full z-50 backdrop-blur-sm bg-white/90 shadow-md">
+  <nav className="fixed w-full z-50 backdrop-blur-sm bg-gradient-to-b from-black to-indigo-900 text-gray-300 shadow-md">
   <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div className="flex justify-between h-16 items-center">
       
@@ -23,15 +23,19 @@ const Navbar = () => {
 
       {/* Desktop Menu */}
       <div className="hidden md:flex space-x-8 items-center font-medium">
-        {["Home", "Add Car", "My Listings", "My Bookings", "Browse Cars"].map((item) => (
-          <Link
-            key={item}
-            to={`/${item.toLowerCase().replace(/ /g, "-")}`}
-            className="hover:text-blue-600 transition duration-200"
-          >
-            {item}
-          </Link>
-        ))}
+       {["Home", "Add Car", "My Listings", "My Bookings", "Browse Cars"].map((item) => {
+  const path = item === "Home" ? "/" : `/${item.toLowerCase().replace(/ /g, "-")}`;
+  return (
+    <Link
+      key={item}
+      to={path}
+      className="hover:text-blue-600 transition duration-200"
+    >
+      {item}
+    </Link>
+  );
+})}
+
 
         {!user ? (
           <Link
