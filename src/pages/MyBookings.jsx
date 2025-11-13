@@ -15,9 +15,9 @@ const MyBookings = () => {
     if (!user?.email) return;
 console.log("User object:", user);
   console.log("Fetching bookings for user:", user?.email);
-  console.log("Fetching URL:", `http://localhost:3000/bookings?email=${user?.email}`);
+  console.log("Fetching URL:", `https://server-cars-green.vercel.app/bookings?email=${user?.email}`);
     axios
-      .get(`http://localhost:3000/bookings?email=${user.email}`)
+      .get(`https://server-cars-green.vercel.app/bookings?email=${user.email}`)
       .then((res) => {
           console.log("Bookings fetched:", res.data);
         setBookings(res.data);

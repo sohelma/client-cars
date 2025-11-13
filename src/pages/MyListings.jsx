@@ -22,7 +22,7 @@ const MyListings = ({ userEmail }) => {
     if (!userEmail) return;
 
     axios
-      .get(`http://localhost:3000/my-cars/${userEmail}`)
+      .get(`https://server-cars-green.vercel.app/my-cars/${userEmail}`)
       .then((res) => {
         console.log("Fetched cars:", res.data);
         setMyCars(res.data);
@@ -42,7 +42,7 @@ const MyListings = ({ userEmail }) => {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`http://localhost:3000/cars/${id}`)
+          .delete(`https://server-cars-green.vercel.app/cars/${id}`)
           .then(() => {
             setMyCars((prev) => prev.filter((car) => car._id !== id));
             Swal.fire("Deleted!", "Car has been removed.", "success");
@@ -73,7 +73,7 @@ const MyListings = ({ userEmail }) => {
     };
 
     axios
-      .put(`http://localhost:3000/cars/${editingCar._id}`, updatedCar)
+      .put(`https://server-cars-green.vercel.app/cars/${editingCar._id}`, updatedCar)
       .then(() => {
         Swal.fire("Updated!", "Car info updated successfully!", "success");
         setMyCars((prev) =>

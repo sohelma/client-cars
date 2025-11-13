@@ -214,7 +214,7 @@ const Home = () => {
           ].map((t, idx) => (
             <div key={idx} className="bg-white p-6 rounded-lg shadow text-center  bg-gradient-to-b from-blue-100 via-green-50 to-blue-50">
               <img
-                src={`http://localhost:3000/images/${t.img}`}
+                src={`https://server-cars-green.vercel.app/images/${t.img}`}
                 alt={t.name}
                 className="w-20 h-20 rounded-full mx-auto mb-4 object-cover"
               />

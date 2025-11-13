@@ -10,7 +10,7 @@ const BrowseCars = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/cars") // all cars fetching
+      .get("https://server-cars-green.vercel.app/cars") // all cars fetching
       .then((res) => {
         setCars(res.data);
       })
