@@ -5,11 +5,17 @@ import { Link } from "react-router-dom";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { Typewriter } from "react-simple-typewriter";
+import { motion } from "framer-motion";
+import { Tooltip } from "react-tooltip";
+import "react-tooltip/dist/react-tooltip.css";
+import { FaCar, FaMoneyBillWave, FaMousePointer, FaHeadset } from "react-icons/fa";
 
 const Home = () => {
   const [featuredCars, setFeaturedCars] = useState([]);
   const [topRatedCars, setTopRatedCars] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
     const fetchCars = async () => {
@@ -42,89 +48,111 @@ const Home = () => {
 
   if (loading) return <div className="text-center mt-20">Loading cars...</div>;
 
+  const filteredCars = featuredCars.filter((car) =>
+    car.carName?.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  const features = [
+    { title: "Wide Selection", desc: "Choose from a wide range of cars", icon: <FaCar className="text-4xl mx-auto mb-3 text-blue-600" /> },
+    { title: "Affordable Prices", desc: "Best price guaranteed", icon: <FaMoneyBillWave className="text-4xl mx-auto mb-3 text-green-600" /> },
+    { title: "Easy Booking", desc: "Book cars in few clicks", icon: <FaMousePointer className="text-4xl mx-auto mb-3 text-yellow-500" /> },
+    { title: "24/7 Support", desc: "Always here to help", icon: <FaHeadset className="text-4xl mx-auto mb-3 text-red-500" /> },
+  ];
+
   return (
     <div className="bg-gray-100">
 
-     {/* Hero Slider */}
-<section className="relative">
-  <Slider
-    dots={true}
-    infinite={true}
-    speed={1000}
-    slidesToShow={1}
-    slidesToScroll={1}
-    autoplay={true}
-    autoplaySpeed={4000}
-    fade={true}
-    cssEase="linear"
-  >
-    {[
-      {
-        title: "Drive Your Dream Car",
-        subtitle: "Find the perfect ride for your next adventure",
-      },
-      {
-        title: "Luxury, Comfort & Style",
-        subtitle: "Experience premium cars at affordable prices",
-      },
-      {
-        title: "Book Easily, Drive Freely",
-        subtitle: "Fast booking, smooth rides, and trusted service",
-      },
-    ].map((slide, idx) => (
-      <div key={idx} className="relative h-[500px] bg-black overflow-hidden">
-        <div className="absolute inset-0 flex flex-col items-center justify-center text-center text-red-700 px-4">
-          <h1 className="text-4xl md:text-6xl font-bold mb-4 animate-fadeInUp">
-            {slide.title}
-          </h1>
-          <p className="text-lg md:text-2xl text-gray-200 animate-fadeIn delay-300">
-            {slide.subtitle}
-          </p>
-        </div>
-      </div>
-    ))}
-  </Slider>
-</section>
-
-        {/* Featured Cars */}
-        <section className="max-w-6xl mx-auto mb-12">
-          <h2 className="text-3xl font-bold mb-6 text-center">Featured Cars</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {featuredCars.map((car) => (
-              <div key={car._id} className="border rounded-lg shadow-md p-4 hover:shadow-xl transition relative bg-white">
-              <img
-                    src={
-                      car.image && car.image.startsWith("http")
-                        ? car.image
-                        : car.image
-                        ? `${import.meta.env.VITE_API_URL}${car.image}`
-                        : "https://via.placeholder.com/400x300?text=No+Image"
-                    }
-                    alt={car.carName || "Car"}
-                    className="w-full h-48 object-cover rounded"
+      {/* Hero Slider */}
+      <section className="relative">
+        <Slider {...heroSettings}>
+          {[
+            { title: "Drive Your Dream Car", subtitle: "Find the perfect ride for your next adventure" },
+            { title: "Luxury, Comfort & Style", subtitle: "Experience premium cars at affordable prices" },
+            { title: "Book Easily, Drive Freely", subtitle: "Fast booking, smooth rides, and trusted service" },
+          ].map((slide, idx) => (
+            <div key={idx} className="relative h-[500px] bg-black overflow-hidden">
+              <div className="absolute inset-0 flex flex-col items-center justify-center text-center text-red-700 px-4">
+                <h1 className="text-4xl md:text-6xl font-bold mb-4 animate-fadeInUp">
+                  <Typewriter
+                    words={[slide.title]}
+                    loop={1}
+                    cursor
+                    cursorStyle="_"
+                    typeSpeed={70}
+                    deleteSpeed={50}
                   />
+                </h1>
+                <p className="text-lg md:text-2xl text-gray-200 animate-fadeIn delay-300">{slide.subtitle}</p>
+              </div>
+            </div>
+          ))}
+        </Slider>
+      </section>
+
+      {/* Featured Cars */}
+      <section className="max-w-6xl mx-auto mb-12 mt-4 px-4">
+        <h2 className="text-3xl font-bold mb-6 text-center">Featured Cars</h2>
+        <div className="flex justify-center mb-8">
+          <input
+            type="text"
+            placeholder="Search car by name..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="w-full sm:w-96 px-4 py-2 border border-gray-300 rounded-full shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200"
+          />
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {filteredCars.length > 0 ? (
+            filteredCars.map((car) => (
+              <motion.div
+                key={car._id}
+                className="border rounded-lg shadow-md p-4 hover:shadow-xl transition relative bg-white"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3 }}
+              >
+                <img
+                  src={car.image && car.image.startsWith("http") ? car.image : car.image ? `${import.meta.env.VITE_API_URL}${car.image}` : "https://via.placeholder.com/400x300?text=No+Image"}
+                  alt={car.carName || "Car"}
+                  className="w-full h-48 object-cover rounded"
+                  data-tooltip-id={`car-tooltip-${car._id}`}
+                  data-tooltip-content={`Price: $${car.rentPrice}/day\nRating: ${car.rating}`}
+                />
+                <Tooltip id={`car-tooltip-${car._id}`} place="top" effect="solid" multiline />
 
                 <h3 className="text-xl font-bold mt-2">{car.carName}</h3>
                 <p className="text-gray-700">Category: {car.category}</p>
-                <p className="text-gray-700">Price: ${car.rentPrice}/day</p>
-                <p className="text-green-600 font-semibold">Rating: {car.rating}</p>
-                  <Link
-                    to={`/cars/${car._id}`}
-                    className="inline-block mt-2 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
-                  >
-                    View Details
+                <Link
+                  to={`/cars/${car._id}`}
+                  className="inline-block mt-2 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+                >
+                  View Details
                 </Link>
-              </div>
-            ))}
-          </div>
-        </section>
+              </motion.div>
+            ))
+          ) : (
+            <p className="text-center text-gray-500 col-span-full">No cars found matching “{searchTerm}”</p>
+          )}
+        </div>
+      </section>
 
       {/* Top Rated Cars */}
       <section className="max-w-6xl mx-auto mb-12">
         <h2 className="text-3xl font-bold mb-6 text-center">Top Rated Cars</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {topRatedCars.map((car) => (
-            <div key={car._id} className="relative border rounded-lg shadow-md p-4 hover:shadow-xl transition bg-gray-50">
+            <motion.div
+              key={car._id}
+              className="relative border rounded-lg shadow-md p-4 hover:shadow-xl transition bg-gray-50"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.3 }}
+            >
               <img
                 src={car.image.startsWith("http") ? car.image : `${import.meta.env.VITE_API_URL}${car.image}`}
                 alt={car.carName}
@@ -142,7 +170,7 @@ const Home = () => {
               >
                 View Details
               </Link>
-            </div>
+            </motion.div>
           ))}
         </div>
       </section>
@@ -151,17 +179,12 @@ const Home = () => {
       <section className="max-w-6xl mx-auto mb-12">
         <h2 className="text-3xl font-bold mb-6 text-center">Why Rent With Us</h2>
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-          {[
-            { title: "Wide Selection", desc: "Choose from a wide range of cars", icon: "🚗" },
-            { title: "Affordable Prices", desc: "Best price guaranteed", icon: "💰" },
-            { title: "Easy Booking", desc: "Book cars in few clicks", icon: "🖱️" },
-            { title: "24/7 Support", desc: "Always here to help", icon: "📞" },
-          ].map((item, idx) => (
+          {features.map((item, idx) => (
             <div
               key={idx}
               className="bg-white p-6 rounded-lg shadow hover:shadow-2xl transform hover:-translate-y-2 transition text-center"
             >
-              <div className="text-4xl mb-3">{item.icon}</div>
+              {item.icon}
               <h3 className="text-xl font-bold mb-2">{item.title}</h3>
               <p className="text-gray-600">{item.desc}</p>
             </div>
