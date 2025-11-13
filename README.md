@@ -20,12 +20,15 @@ This repository contains the frontend of RentWheels – a car rental platform bu
 
 ## Technologies Used
 
-- React.js
-- TailwindCSS
-- React Router (v6)
-- Axios / Fetch API
-- Firebase Authentication
-- Framer Motion / React Typewriter (optional animations)
+This project is built using the following technologies:
+
+- **React.js** – For building the user interface.
+- **TailwindCSS** – For modern and responsive styling.
+- **React Router (v6)** – For client-side routing.
+- **Axios / Fetch API** – For HTTP requests to the backend.
+- **Firebase Authentication** – For user authentication and management.
+- **Framer Motion / React Typewriter / React Tooltip**  – For animations and dynamic effects.
+
 
 ## Setup Instructions
 
