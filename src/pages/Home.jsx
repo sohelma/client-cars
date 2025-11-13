@@ -91,12 +91,26 @@ const Home = () => {
 
       {/* Featured Cars */}
      {/* Featured Cars Section */}
+{/* Featured Cars Section */}
 <section className="max-w-7xl mx-auto px-4 py-8">
-  <h2 className="text-3xl font-bold mb-6 text-center text-black">Featured Cars</h2>
+  <h2 className="text-3xl font-bold mb-6 text-center text-black">
+    Featured Cars
+  </h2>
+
+  {/* Search Input */}
+  <div className="flex justify-center mb-6">
+    <input
+      type="text"
+      placeholder="Search car by name..."
+      value={searchTerm}
+      onChange={(e) => setSearchTerm(e.target.value)}
+      className="w-full sm:w-96 px-4 py-2 border border-gray-300 rounded-full shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200"
+    />
+  </div>
 
   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-    {featuredCars.length > 0 ? (
-      featuredCars.map((car) => (
+    {filteredCars.length > 0 ? (
+      filteredCars.map((car) => (
         <div
           key={car._id}
           className="border rounded-lg shadow-md p-4 hover:shadow-xl transition bg-white"
@@ -127,10 +141,13 @@ const Home = () => {
         </div>
       ))
     ) : (
-      <p className="text-center text-gray-500 col-span-full">No cars available.</p>
+      <p className="text-center text-gray-500 col-span-full">
+        No cars found matching “{searchTerm}”
+      </p>
     )}
   </div>
 </section>
+
 
 
       {/* Top Rated Cars */}
@@ -159,7 +176,7 @@ const Home = () => {
               <p className="text-gray-700">Category: {car.category}</p>
               <p className="text-gray-700">Price: ${car.rentPrice}/day</p>
               <Link
-                to={`/car/${car._id}`}
+                to={`/cars/${car._id}`}
                 className="inline-block mt-2 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
               >
                 View Details
