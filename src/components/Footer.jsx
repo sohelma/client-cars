@@ -5,10 +5,12 @@ import { FaFacebookF, FaLinkedinIn, FaInstagram, FaMapMarkerAlt, FaPhoneAlt, FaE
 
 const Footer = () => {
   return (
-    <footer className="bg-gradient-to-b from-black to-indigo-900 text-gray-300 py-12 mt-10">
+    <footer className="bg-gradient-to-b from-black to-indigo-900 text-gray-300 py-12 mt-10 
+    ">
       
       {/* Main Container */}
-      <div className="w-9/12 mx-auto flex flex-col md:flex-row justify-between gap-10">
+      <div className="w-9/12 mx-auto flex flex-col md:flex-row justify-between gap-10
+      w-full sm:w-[500px] md:w-[600px] lg:w-[1200px] mx-auto">
 
         {/* Contact Us */}
         <div className="md:max-w-xs flex flex-col space-y-3">
@@ -29,7 +31,8 @@ const Footer = () => {
         </div>
 
         {/* Follow Us */}
-        <div className="md:max-w-xs flex flex-col space-y-4">
+        <div className="md:max-w-xs flex flex-
+         space-y-4">
           <h2 className="text-xl font-semibold text-white">Follow Us</h2>
           <Link to="/facebook" className="flex items-center gap-3 group hover:text-blue-400 transition">
             <div className="w-10 h-10 flex items-center justify-center bg-blue-600 rounded-full group-hover:bg-blue-500 transition-all">

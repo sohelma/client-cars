@@ -1,4 +1,3 @@
-// src/pages/BrowseCars.jsx
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import CarCard from "../components/CarCard";
@@ -10,11 +9,9 @@ const BrowseCars = () => {
 
   useEffect(() => {
     axios
-      .get("https://server-cars-green.vercel.app/cars") // all cars fetching
-      .then((res) => {
-        setCars(res.data);
-      })
-      .catch((err) => {
+      .get(`${import.meta.env.VITE_API_URL}/cars`)
+      .then(res => setCars(res.data))
+      .catch(err => {
         console.error(err);
         toast.error("Failed to fetch cars");
       })
@@ -30,7 +27,7 @@ const BrowseCars = () => {
         <p className="text-center text-gray-600 text-lg">No cars available</p>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-          {cars.map((car) => (
+          {cars.map(car => (
             <CarCard key={car._id} car={car} />
           ))}
         </div>

@@ -115,17 +115,18 @@ const Home = () => {
           key={car._id}
           className="border rounded-lg shadow-md p-4 hover:shadow-xl transition bg-white"
         >
-          <img
-            src={
-              car.image && car.image.startsWith("http")
-                ? car.image
-                : car.image
-                ? `${import.meta.env.VITE_API_URL}${car.image}`
-                : "https://via.placeholder.com/400x300?text=No+Image"
-            }
-            alt={car.carName || "Car"}
-            className="w-full h-48 object-cover rounded"
-          />
+        <img
+  src={
+    car.image
+      ? car.image.startsWith("http")
+        ? car.image
+        : `${import.meta.env.VITE_API_URL}${car.image}` // MongoDB path অনুযায়ী
+      : "https://via.placeholder.com/400x300?text=No+Image"
+  }
+  alt={car.carName || "Car"}
+  className="w-full h-48 object-cover rounded"
+/>
+
 
           <h3 className="text-xl font-semibold mt-2">{car.carName}</h3>
           <p className="text-gray-700">Rent: ৳{car.rentPrice} / day</p>
@@ -164,11 +165,18 @@ const Home = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.3 }}
             >
-              <img
-                src={car.image.startsWith("http") ? car.image : `${import.meta.env.VITE_API_URL}${car.image}`}
-                alt={car.carName}
-                className="w-full h-48 object-cover rounded"
-              />
+                <img
+                  src={
+                    car.image
+                      ? car.image.startsWith("http")
+                        ? car.image
+                        : `${import.meta.env.VITE_API_URL}${car.image}` // MongoDB path অনুযায়ী
+                      : "https://via.placeholder.com/400x300?text=No+Image"
+                  }
+                  alt={car.carName || "Car"}
+                  className="w-full h-48 object-cover rounded"
+               />      
+
               <div className="absolute top-2 left-2 bg-yellow-400 text-black font-bold px-2 py-1 rounded">
                 ⭐ {car.rating}
               </div>
@@ -213,11 +221,12 @@ const Home = () => {
             { name: "Ali Khan", text: "Excellent experience.", img: "user3.jpg" },
           ].map((t, idx) => (
             <div key={idx} className="bg-white p-6 rounded-lg shadow text-center  bg-gradient-to-b from-blue-100 via-green-50 to-blue-50">
-              <img
-                src={`https://server-cars-green.vercel.app/images/${t.img}`}
+             <img
+                src={`${import.meta.env.VITE_API_URL}/images/${t.img}`}
                 alt={t.name}
                 className="w-20 h-20 rounded-full mx-auto mb-4 object-cover"
               />
+
               <p className="mb-2">"{t.text}"</p>
               <h4 className="font-bold">{t.name}</h4>
             </div>
