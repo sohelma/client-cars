@@ -21,12 +21,12 @@ const BrowseCars = () => {
   if (loading) return <div className="text-center mt-20">Loading cars...</div>;
 
   return (
-    <div className="max-w-6xl mx-auto mt-12 px-4">
+    <div className="max-w-6xl mx-auto px-4">
       <h2 className="text-3xl font-bold mb-6 text-center">Browse Cars</h2>
       {cars.length === 0 ? (
         <p className="text-center text-gray-600 text-lg">No cars available</p>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
           {cars.map(car => (
             <CarCard key={car._id} car={car} />
           ))}

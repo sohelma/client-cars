@@ -1,8 +1,7 @@
 // src/pages/Login.jsx
 import React, { useState } from "react";
-
 import { Link, useNavigate } from "react-router-dom";
-
+import { FaEye, FaEyeSlash, FaGoogle } from "react-icons/fa";
 import { signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { auth } from "../firebase/firebase.config";
 import Swal from "sweetalert2";
@@ -76,39 +75,109 @@ const Login = () => {
   if (loading) return <Loader />;
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-sky-100">
-      <div className="w-full max-w-md p-6 bg-white rounded-xl shadow-lg">
-        <h2 className="text-2xl font-bold text-center mb-6">Login</h2>
-        <form onSubmit={handleLogin} className="space-y-4">
-          <input type="email" name="email" placeholder="Email" required className="w-full p-2 border rounded" />
+  <div className="flex justify-center items-center min-h-screen 
+                  bg-gradient-to-br from-sky-100 via-blue-100 to-indigo-100">
+    <div className="w-full max-w-md p-8 
+                    bg-white/90 backdrop-blur
+                    rounded-2xl shadow-2xl">
+
+      {/* Title */}
+      <h2 className="text-3xl font-bold text-center mb-2 text-gray-800">
+        Welcome Back
+      </h2>
+      <p className="text-center text-gray-500 mb-6">
+        Login to your account
+      </p>
+
+      {/* Form */}
+      <form onSubmit={handleLogin} className="space-y-5">
+
+        <div>
+          <label className="block mb-1 text-sm text-gray-600">
+            Email
+          </label>
+          <input
+            type="email"
+            name="email"
+            placeholder="you@example.com"
+            required
+            className="w-full px-4 py-2.5 rounded-lg
+                       border border-gray-300
+                       focus:ring-2 focus:ring-blue-500
+                       focus:outline-none"
+          />
+        </div>
+
+        <div>
+          <label className="block mb-1 text-sm text-gray-600">
+            Password
+          </label>
           <div className="relative">
             <input
               type={showPassword ? "text" : "password"}
               name="password"
-              placeholder="Password"
+              placeholder="••••••••"
               required
-              className="w-full p-2 border rounded"
+              className="w-full px-4 py-2.5 rounded-lg
+                         border border-gray-300
+                         focus:ring-2 focus:ring-blue-500
+                         focus:outline-none"
             />
-            <span className="absolute right-2 top-2 cursor-pointer" onClick={() => setShowPassword(!showPassword)}>
-              {showPassword ? "🙈" : "👁️"}
+            <span
+              className="absolute right-3 top-3 cursor-pointer text-gray-500"
+              onClick={() => setShowPassword(!showPassword)}
+            >
+              {showPassword ? <FaEyeSlash /> : <FaEye />}
             </span>
           </div>
-          <button type="submit" className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">Login</button>
-        </form>
+        </div>
 
         <button
-          onClick={handleGoogleLogin}
-          className="w-full mt-2 bg-red-500 text-white py-2 rounded hover:bg-red-600"
+          type="submit"
+          className="w-full py-2.5 rounded-lg
+                     bg-gradient-to-r from-blue-600 to-indigo-600
+                     text-white font-semibold
+                     hover:opacity-90 transition"
         >
-          Login with Google
+          Login
         </button>
+      </form>
 
-        <div className="mt-4 text-center">
-          <Link to="/signup" className="text-blue-500 hover:underline">Don't have an account? Signup</Link>
-        </div>
+      {/* Divider */}
+      <div className="flex items-center my-5">
+        <div className="flex-grow h-px bg-gray-300"></div>
+        <span className="px-3 text-sm text-gray-400">OR</span>
+        <div className="flex-grow h-px bg-gray-300"></div>
       </div>
+
+      {/* Google Login */}
+      <button
+        onClick={handleGoogleLogin}
+        className="w-full flex items-center justify-center gap-3
+                   py-2.5 rounded-lg border border-gray-300
+                   bg-white hover:bg-gray-50 transition"
+      >
+        <FaGoogle className="text-red-500 text-lg" />
+        <span className="font-medium text-gray-700">
+          Continue with Google
+        </span>
+      </button>
+
+      {/* Signup link */}
+      <div className="mt-6 text-center text-sm">
+        <span className="text-gray-600">Don't have an account?</span>
+        <Link
+          to="/signup"
+          className="ml-1 text-blue-600 font-medium hover:underline"
+        >
+          Sign up
+        </Link>
+      </div>
+
     </div>
-  );
+  </div>
+);
+
 };
 
 export default Login;

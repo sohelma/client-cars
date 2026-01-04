@@ -90,7 +90,7 @@ const MyListings = ({ userEmail }) => {
   };
 
   return (
-    <div className="max-w-6xl mx-auto mt-12 px-4">
+    <div className="max-w-6xl mx-auto px-4">
       <h2 className="text-3xl font-bold mb-6 text-center">My Listings</h2>
 
       {myCars.length === 0 ? (

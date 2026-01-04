@@ -32,7 +32,7 @@ console.log("User object:", user);
   if (loading) return <div className="text-center mt-20">Loading bookings...</div>;
 
   return (
-    <div className="max-w-6xl mx-auto mt-12 px-4">
+    <div className="max-w-6xl mx-auto px-4">
       <h2 className="text-3xl font-bold mb-6 text-center">My Bookings</h2>
 
       {bookings.length === 0 ? (

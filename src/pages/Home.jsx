@@ -10,6 +10,7 @@ import { motion } from "framer-motion";
 import { Tooltip } from "react-tooltip";
 import "react-tooltip/dist/react-tooltip.css";
 import { FaCar, FaMoneyBillWave, FaMousePointer, FaHeadset } from "react-icons/fa";
+import BackToTopButton from "../components/BackToTopButton";
 
 const Home = () => {
   const [featuredCars, setFeaturedCars] = useState([]);
@@ -89,8 +90,7 @@ const Home = () => {
         </Slider>
       </section>
 
-      {/* Featured Cars */}
-     {/* Featured Cars Section */}
+    
 {/* Featured Cars Section */}
 <section className="max-w-7xl mx-auto px-4 py-8">
   <h2 className="text-3xl font-bold mb-6 text-center text-black">
@@ -108,7 +108,7 @@ const Home = () => {
     />
   </div>
 
-  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
     {filteredCars.length > 0 ? (
       filteredCars.map((car) => (
         <div
@@ -129,9 +129,9 @@ const Home = () => {
 
 
           <h3 className="text-xl font-semibold mt-2">{car.carName}</h3>
-          <p className="text-gray-700">Rent: ৳{car.rentPrice} / day</p>
-          <p className="text-gray-500">Category / Model: {car.category}</p>
-          <p className="text-gray-500">Provider: {car.providerName}</p>
+          <p className="text-gray-700"> ৳: {car.rentPrice} / day</p>
+          <p className="text-gray-500"> {car.category}</p>
+        
 
           <Link
             to={`/cars/${car._id}`}
@@ -152,13 +152,13 @@ const Home = () => {
 
 
       {/* Top Rated Cars */}
-      <section className="max-w-6xl mx-auto mb-12 ">
+      <section className="max-w-7xl mx-auto mb-12 ">
         <h2 className="text-3xl font-bold mb-6 text-center">Top Rated Cars</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 ">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
           {topRatedCars.map((car) => (
             <motion.div
               key={car._id}
-              className="relative border rounded-lg shadow-md p-4 hover:shadow-xl transition bg-gray-300"
+              className="relative rounded-lg shadow-md p-2 hover:shadow-   transition bg-gray-300"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               initial={{ opacity: 0, y: 20 }}
@@ -177,12 +177,12 @@ const Home = () => {
                   className="w-full h-48 object-cover rounded"
                />      
 
-              <div className="absolute top-2 left-2 bg-yellow-400 text-black font-bold px-2 py-1 rounded">
+              <div className="absolute top-2 left-2 bg-amber-300 text-black font-bold px-2 py-1 rounded">
                 ⭐ {car.rating}
               </div>
               <h3 className="text-xl font-bold mt-2">{car.carName}</h3>
-              <p className="text-gray-700">Category: {car.category}</p>
-              <p className="text-gray-700">Price: ${car.rentPrice}/day</p>
+              <p className="text-gray-700">{car.category}</p>
+              <p className="text-gray-700">৳:{car.rentPrice}/day</p>
               <Link
                 to={`/cars/${car._id}`}
                 className="inline-block mt-2 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
@@ -195,7 +195,7 @@ const Home = () => {
       </section>
 
       {/* Why Rent With Us */}
-      <section className="max-w-6xl mx-auto mb-12 p-6 rounded-lg bg-gradient-to-r from-yellow-100 via-pink-50 to-purple-50">
+      <section className="max-w-7xl mx-auto mb-12 p-6 rounded-lg bg-gradient-to-r from-yellow-100 via-pink-50 to-purple-50">
         <h2 className="text-3xl font-bold mb-6 text-center">Why Rent With Us</h2>
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
           {features.map((item, idx) => (
@@ -212,7 +212,7 @@ const Home = () => {
       </section>
 
       {/* Customer Testimonials */}
-      <section className="max-w-6xl mx-auto mt-12 mb-12 ">
+      <section className="max-w-7xl mx-auto mt-12 mb-12 ">
         <h2 className="text-3xl font-bold mb-6 text-center">Customer Testimonials</h2>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 ">
           {[
@@ -233,6 +233,8 @@ const Home = () => {
           ))}
         </div>
       </section>
+
+      <BackToTopButton />
     </div>
   );
 };
