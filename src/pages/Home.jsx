@@ -212,27 +212,46 @@ const Home = () => {
       </section>
 
       {/* Customer Testimonials */}
-      <section className="max-w-7xl mx-auto mt-12 mb-12 ">
-        <h2 className="text-3xl font-bold mb-6 text-center">Customer Testimonials</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 ">
-          {[
-            { name: "Sabahat Safina", text: "Great service!", img: "user1.webp" },
-            { name: "S. A. Mamun", text: "Affordable cars.", img: "user2.avif" },
-            { name: "Ali Khan", text: "Excellent experience.", img: "user3.jpg" },
-          ].map((t, idx) => (
-            <div key={idx} className="bg-white p-6 rounded-lg shadow text-center  bg-gradient-to-b from-blue-100 via-green-50 to-blue-50">
-             <img
-                src={`${import.meta.env.VITE_API_URL}/images/${t.img}`}
-                alt={t.name}
-                className="w-20 h-20 rounded-full mx-auto mb-4 object-cover"
-              />
+      <section className="max-w-7xl mx-auto mt-12 mb-12">
+  <h2 className="text-3xl font-bold mb-6 text-center">
+    Customer Testimonials
+  </h2>
 
-              <p className="mb-2">"{t.text}"</p>
-              <h4 className="font-bold">{t.name}</h4>
-            </div>
-          ))}
-        </div>
-      </section>
+  <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+    {[
+      {
+        name: "Sabahat Safina",
+        text: "Great service!",
+        img: "https://i.ibb.co.com/vxHPPtmL/user1.webp",
+      },
+      {
+        name: "S. A. Mamun",
+        text: "Affordable cars.",
+        img: "https://i.ibb.co.com/9HSZCWbZ/user2.jpg",
+      },
+      {
+        name: "Mustak Sahrier",
+        text: "Excellent experience.",
+        img: "https://i.ibb.co.com/rKwHqZ8q/user3.jpg",
+      },
+    ].map((t, idx) => (
+      <div
+        key={idx}
+        className="bg-white p-6 rounded-lg shadow text-center bg-gradient-to-b from-blue-100 via-green-50 to-blue-50"
+      >
+        <img
+          src={t.img}
+          alt={t.name}
+          className="w-20 h-20 rounded-full mx-auto mb-4 object-cover"
+        />
+
+        <p className="mb-2">"{t.text}"</p>
+        <h4 className="font-bold">{t.name}</h4>
+      </div>
+    ))}
+  </div>
+</section>
+
 
       <BackToTopButton />
     </div>
